@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Placed</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f8f9fa;
+      margin: 0;
+    }
+
+  .confirmation-box {
+  position: absolute;
+  top: 50%; /* Adjust as needed */
+  left: 50%; /* Adjust as needed */
+  transform: translate(-50%, -50%);
+  z-index: 1000; /* Ensure it appears above other elements */
+}
+
+
+    .checkmark {
+      display: inline-block;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: #28a745;
+      position: relative;
+      animation: scaleIn 0.5s ease-in-out forwards;
+    }
+    .order-placed-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000; /* Ensure it appears above other elements */
+}
+
+    .checkmark::after {
+      content: '';
+      position: absolute;
+      left: 28px;
+      top: 14px;
+      width: 16px;
+      height: 32px;
+      border: solid #fff;
+      border-width: 0 6px 6px 0;
+      transform: rotate(45deg);
+      animation: drawCheck 0.5s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(0);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes drawCheck {
+      from {
+        width: 0;
+        height: 0;
+      }
+      to {
+        width: 16px;
+        height: 32px;
+      }
+    }
+
+    .message {
+      margin-top: 20px;
+      font-size: 1.5em;
+      color: #333;
+    }
+
+    .btn-home {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-home:hover {
+      background-color: #97bae0;
+    }
+  </style>
+</head>
+<body>
+  <div class="confirmation-box">
+    <div class="checkmark"></div>
+    <div class="message">Order Placed Successfully!</div>
+    <a href="/" class="btn-home">Go to Home</a>
+  </div>
+
+  <script>
+    // Redirect after 3 seconds (adjust timing as needed)
+    setTimeout(() => {
+      window.location.href = "/orders";
+    }, 2000); // 3000 milliseconds = 3 seconds
+  </script>
+</body>
+</html>

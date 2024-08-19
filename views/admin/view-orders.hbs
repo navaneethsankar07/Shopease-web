@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Orders</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <h1>All Orders</h1>
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th>Address</th>
+          <th>Pincode</th>
+          <th>Mobile</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Payment</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+{{#each orders}}
+<tr>
+  <td>{{this.date}}</td>
+  <td>{{this.deliveryDetails.address}}</td>
+  <td>{{this.deliveryDetails.pincode}}</td>
+  <td>{{this.deliveryDetails.mobile}}</td>
+  <td>{{this.totalAmount}}</td>
+  <td>{{this.paymentMethod}}</td>
+  <td>{{this.status}}</td>
+  <td>
+    {{#if (eq this.status 'placed')}}
+      <form action="/admin/approve-order/{{this._id}}" method="post">
+        <button type="submit" class="btn btn-success">Approve</button>
+      </form>
+    {{/if}}
+  </td>
+</tr>
+{{/each}}
+</tbody>
+
+    </table>
+    
+  </div>
+</body>
+</html>

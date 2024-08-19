@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Details</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .product-image {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+    }
+    .order-summary {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="mb-4">Order Details</h1>
+    <table class="table table-bordered table-responsive">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Image</th>
+          <th scope="col">Product Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each products}}
+        <tr>
+          <td>
+            <img src="/product-images/{{this.product._id}}.jpg" style="width: 70px; height: 90px;" alt="Product Image" class="product-image">
+          </td>
+          <td>{{this.product.Name}}</td> <!-- Make sure this is correct -->
+          <td>{{this.product.Price}}</td>
+          <td>{{this.quantity}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <div class="order-summary">
+      <p>Delivery Date: {{deliveryDate}}</p>
+      <button id="cancelOrderBtn" class="btn btn-danger">Cancel Order</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('cancelOrderBtn').addEventListener('click', function() {
+      const orderId = '{{orderId}}';
+      if (confirm('Are you sure you want to cancel this order?')) {
+        fetch(`/cancel-order/${orderId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then(response => response.json())
+          .then(data => {
+            if (data.status) {
+              alert('Order cancelled successfully');
+              window.location.href = '/orders'; // Redirect to orders page or any other page
+            } else {
+              alert('Failed to cancel order');
+            }
+          }).catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while cancelling the order');
+          });
+      }
+    });
+  </script>
+</body>
+</html>

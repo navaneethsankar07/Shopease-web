@@ -1,0 +1,25 @@
+.quantity-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px; /* Adjust as needed */
+}
+
+.cart-item-count.invisible {
+    visibility: hidden;
+}
+.card {
+    cursor: pointer;
+  }
+  
+  .card .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+  
+  .card .card-text {
+    flex-grow: 1;
+  }
+  

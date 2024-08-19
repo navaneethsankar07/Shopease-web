@@ -1,0 +1,57 @@
+[debug] [2024-07-19T13:32:18.184Z] ----------------------------------------------------------------------
+[debug] [2024-07-19T13:32:18.198Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js login
+[debug] [2024-07-19T13:32:18.200Z] CLI Version:   13.13.3
+[debug] [2024-07-19T13:32:18.201Z] Platform:      win32
+[debug] [2024-07-19T13:32:18.202Z] Node Version:  v20.14.0
+[debug] [2024-07-19T13:32:18.203Z] Time:          Fri Jul 19 2024 19:02:18 GMT+0530 (India Standard Time)
+[debug] [2024-07-19T13:32:18.204Z] ----------------------------------------------------------------------
+[debug] 
+[info] i  Firebase optionally collects CLI and Emulator Suite usage and error reporting information to help improve our products. Data is collected in accordance with Google's privacy policy (https://policies.google.com/privacy) and is not used to identify you.
+ 
+[info] i  To change your data collection preference at any time, run `firebase logout` and log in again. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://accounts.google.com/o/oauth2/auth?client_id=563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com&scope=email%20openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloudplatformprojects.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Ffirebase%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform&response_type=code&state=939271338&redirect_uri=http%3A%2F%2Flocalhost%3A9005
+[info] 
+[info] Waiting for authentication...
+[debug] [2024-07-19T13:32:24.506Z] Error: spawn cmd ENOENT
+    at ChildProcess._handle.onexit (node:internal/child_process:286:19)
+    at onErrorNT (node:internal/child_process:484:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2024-07-19T13:35:41.420Z] ----------------------------------------------------------------------
+[debug] [2024-07-19T13:35:41.447Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js login:ci
+[debug] [2024-07-19T13:35:41.449Z] CLI Version:   13.13.3
+[debug] [2024-07-19T13:35:41.450Z] Platform:      win32
+[debug] [2024-07-19T13:35:41.450Z] Node Version:  v20.14.0
+[debug] [2024-07-19T13:35:41.451Z] Time:          Fri Jul 19 2024 19:05:41 GMT+0530 (India Standard Time)
+[debug] [2024-07-19T13:35:41.452Z] ----------------------------------------------------------------------
+[debug] 
+[warn] !  Authenticating with a `login:ci` token is deprecated and will be removed in a future major version of `firebase-tools`. Instead, use a service account key with `GOOGLE_APPLICATION_CREDENTIALS`: https://cloud.google.com/docs/authentication/getting-started 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://accounts.google.com/o/oauth2/auth?client_id=563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com&scope=email%20openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloudplatformprojects.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Ffirebase%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform&response_type=code&state=1062138489&redirect_uri=http%3A%2F%2Flocalhost%3A9005
+[info] 
+[info] Waiting for authentication...
+[debug] [2024-07-19T13:35:41.945Z] Error: spawn cmd ENOENT
+    at ChildProcess._handle.onexit (node:internal/child_process:286:19)
+    at onErrorNT (node:internal/child_process:484:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2024-07-19T13:36:29.369Z] ----------------------------------------------------------------------
+[debug] [2024-07-19T13:36:29.399Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js logout
+[debug] [2024-07-19T13:36:29.401Z] CLI Version:   13.13.3
+[debug] [2024-07-19T13:36:29.402Z] Platform:      win32
+[debug] [2024-07-19T13:36:29.402Z] Node Version:  v20.14.0
+[debug] [2024-07-19T13:36:29.404Z] Time:          Fri Jul 19 2024 19:06:29 GMT+0530 (India Standard Time)
+[debug] [2024-07-19T13:36:29.405Z] ----------------------------------------------------------------------
+[debug] 
+[info] No need to logout, not logged in
+[debug] [2024-07-19T13:36:38.305Z] Error: Timed out.
+    at Timeout._onTimeout (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\utils.js:268:49)
+    at listOnTimeout (node:internal/timers:573:17)
+    at process.processTimers (node:internal/timers:514:7)
+[error] 
+[error] Error: An unexpected error has occurred.

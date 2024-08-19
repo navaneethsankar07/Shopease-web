@@ -1,0 +1,80 @@
+addToCart: (proId, userId) => {
+    let proObj = { item:  ObjectId(proId), quantity: 1 };
+    return new Promise(async (resolve, reject) => {
+        let userCart = await db.getDB().collection(collection.CART_COLLECTION).findOne({ user: new ObjectId(userId) });
+        console.log("user cart");
+        if (userCart) {
+            let proExist = userCart.products.findIndex(product => product.item.toString() === proId);
+            if (proExist !== -1) {
+                db.getDB().collection(collection.CART_COLLECTION)
+                    .updateOne({ user: new ObjectId(userId), 'products.item': new ObjectId(proId) }, { $inc: { 'products.$.quantity': 1 } })
+                    .then(() => resolve())
+                    .catch((err) => reject(err));
+            } else {
+                db.getDB().collection(collection.CART_COLLECTION)
+                    .updateOne({ user: new ObjectId(userId) }, { $push: { products: proObj } })
+                    .then(() => resolve())
+                    .catch((err) => reject(err));
+            }
+        } else {
+            let cartObj = { user: new ObjectId(userId), products: [proObj] };
+            db.getDB().collection(collection.CART_COLLECTION).insertOne(cartObj).then((response) => resolve()).catch((err) => reject(err));
+        }
+    });
+},
+
+
+
+
+
+
+
+
+
+
+
+router.get('/cart', verifyLogin, async (req, res) => {
+ 
+    let products = await userHelpers.getCartProducts(req.session.user._id);
+    console.log(products);
+    let totalValue=0
+    if(products.length>0){
+     totalValue=await userHelpers.getTotalAmount(userId)
+    }
+    
+    
+    res.render('user/cart', { products,user:req.session.user,totalValue});
+  });
+
+
+
+
+
+  router.get('/', async function (req, res, next) {
+    let user = req.session.user;
+    let cartCount = null;
+    if (req.session.user) {
+      cartCount = await userHelpers.getCartCount(req.session.user._id);
+    }
+  
+    productHelpers.getAllProducts().then((products) => {
+      // Group products by category
+      const groupedProducts = products.reduce((acc, product) => {
+        const category = product.Category || 'Uncategorized';
+        if (!acc[category]) {
+          acc[category] = [];
+        }
+        acc[category].push(product);
+        return acc;
+      }, {});
+  
+      res.render('user/view-products', { groupedProducts, user, cartCount });
+    });
+  });
+
+
+
+
+
+
+  onclick="location.href='/product/{{this._id}}'"

@@ -1,0 +1,71 @@
+<style>
+  .product-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative; /* To position the heart icon */
+  }
+
+  .product-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-height: 1.5em; /* Adjust based on font size */
+  }
+
+  .product-description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 3em; /* Adjust based on font size */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Show only 2 lines */
+    -webkit-box-orient: vertical;
+  }
+
+  .heart-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 1.5em;
+    transition: color 0.3s;
+  }
+
+  .heart-icon.fas {
+    color: red;
+  }
+
+  .heart-icon.far {
+    color: lightgray;
+  }
+</style>
+
+<section>
+  <div class="container mt-5" style="width: 100%;">
+    {{#if searchQuery}}
+    <h3>Search Results for "{{searchQuery}}"</h3>
+    {{/if}}
+    {{#each groupedProducts}}
+    <div class="category-section">
+      <h2>{{@key}}</h2>
+      <div class="row">
+        {{#each this}}
+        <div class="col-md-3 p-3" style="width: 15rem; height:auto">
+          <div class="card container product-card" onclick="window.location.href='/product-detail/{{this._id}}';">
+            <i class="heart-icon {{#if this.inWishlist}}fas{{else}}far{{/if}} fa-heart" onclick="toggleWishlist('{{this._id}}', this, event)"></i>
+            <img style="height: 12rem; width:12rem;" class="card-img-top p-3" src="/product-images/{{this._id}}.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title product-name">{{this.Name}}</h5>
+              <p class="card-title">Rs.{{this.Price}}</p>
+              <p class="card-text product-description">{{this.Description}}</p>
+              <button onclick="addToCart('{{this._id}}')" class="btn btn-primary">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</section>

@@ -1,0 +1,122 @@
+<section>
+    <div class="container">
+        {{#if products.length}}
+        <table class="table mt-5">
+            <thead>
+                <tr>
+                    <th scope="col">Item</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each products}}
+                <tr>
+                    <td><img style="width: 70px; height: 70px;" src="/product-images/{{this.product._id}}.jpg" alt=""></td>
+                    <td>{{this.product.Name}}</td>
+                    <td>Rs.{{this.product.Price}}</td>
+                    <td>
+                        <div class="quantity-container">
+                            <button class="cart-item-count mr-3" onclick="changeQuantity('{{this._id}}', '{{this.product._id}}',-1)">-</button>
+                            <span id="quantity-{{this.product._id}}">{{this.quantity}}</span>
+                            <button class="cart-item-count ml-3" onclick="changeQuantity('{{this._id}}', '{{this.product._id}}', 1)">+</button>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" onclick="confirmRemove('{{this._id}}', '{{this.product._id}}')">Remove</button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <hr>
+        <div class="float-right pr-5">
+            <h5 class="float-left mr-5">Total: Rs.<span id="total">{{totalAmount}}</span> </h5>
+            <a href="/delivery-details" class="mt-3 btn btn-success" style="width: 100%;">Place Order</a>
+        </div>
+        {{else}}
+         <div class="no-items">
+                <h3>No items in cart</h3>
+            </div>
+        {{/if}}
+    </div>
+</section>
+<script>
+  function changeQuantity(cartId, proId, count) {
+    let quantity = parseInt(document.getElementById(`quantity-${proId}`).innerHTML);
+    count = parseInt(count);
+
+    $.ajax({
+        url: '/change-product-quantity',
+        data: {
+            cart: cartId,
+            product: proId,
+            count: count,
+            quantity: quantity
+        },
+        method: 'post',
+        success: (response) => {
+            if (response.removeProduct) {
+                alert("Product Removed From Cart");
+                location.reload(); // Reload the page to reflect the updated quantity
+            } else {
+                document.getElementById(`quantity-${proId}`).innerHTML = quantity + count;
+                updateTotalAmount(); // Update the total amount
+            }
+        },
+        error: (err) => {
+            console.error('Error:', err);
+            alert('An error occurred');
+        }
+    });
+}
+
+function updateTotalAmount() {
+    $.ajax({
+        url: '/get-total-amount',
+        method: 'get',
+        success: (response) => {
+            document.getElementById('total').innerHTML = response.totalAmount;
+            // Check if totalAmount is zero and display message if necessary
+            if (response.totalAmount === 0) {
+                document.querySelector('table').style.display = 'none';
+                document.querySelector('.float-right').style.display = 'none';
+                document.querySelector('.container').innerHTML += '<div class="text-center mt-5"><h4>No items in cart</h4></div>';
+            }
+        },
+        error: (err) => {
+            console.error('Error:', err);
+        }
+    });
+}
+
+function confirmRemove(cartId, proId) {
+    if (confirm('Are you sure you want to remove this product from the cart?')) {
+        removeFromCart(cartId, proId);
+    }
+}
+
+function removeFromCart(cartId, proId) {
+    $.ajax({
+        url: '/remove-from-cart',
+        data: {
+            cart: cartId,
+            product: proId
+        },
+        method: 'post',
+        success: (response) => {
+            if (response.status) {
+                location.reload(); // Refresh the page to update the cart
+            } else {
+                alert(response.message || 'Remove failed');
+            }
+        },
+        error: (err) => {
+            console.error('Error:', err);
+            alert('An error occurred');
+        }
+    });
+}
+</script>

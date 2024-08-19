@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Orders</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <h1>My Orders</h1>
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th scope="col"> Order Date </th>
+          <th>Address</th>
+          <th>Pincode</th>
+          <th>Mobile</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Payment</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each orders}}
+        <tr>
+          <td>{{formatDate this.date}}</td>
+          <td>{{this.deliveryDetails.address}}</td>
+          <td>{{this.deliveryDetails.pincode}}</td>
+          <td>{{this.deliveryDetails.mobile}}</td>
+          <td>{{this.totalAmount}}</td>
+          <td>{{this.paymentMethod}}</td>
+          <td>{{this.status}}</td>
+          <td>
+            <a href="/view-order-products/{{this._id}}" class="btn btn-primary">View Products</a> 
+            {{#if (eq this.status 'pending')}}
+            <form action="/do-payment" method="POST" style="display:inline;">
+              <input type="hidden" name="orderId" value="{{this._id}}">
+              <button type="submit " style="width: 8rem;" class="btn btn-success mt-2">Do Payment</button>
+            </form>
+            {{/if}}
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
+
