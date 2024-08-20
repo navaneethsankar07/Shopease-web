@@ -4,22 +4,26 @@ const bcrypt = require('bcryptjs');
 const { ObjectId } = require('mongodb');
 
 module.exports = {
-    doSignup: (userdata, callback) => {
-        bcrypt.hash(userdata.Password, 10, (err, hash) => {
-            if (err) {
-                console.error('Error hashing password:', err);
-                return callback(err);
+    doSignup: (userdata) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                // Hash the password
+                userdata.Password = await bcrypt.hash(userdata.Password, 10);
+    
+                // Insert the user into the database
+                const response = await db.getDB().collection(collection.USER_COLLECTION).insertOne(userdata);
+    
+                // Resolve the promise with the inserted user's ID
+                resolve(response.insertedId);
+            } catch (err) {
+                // Reject the promise with the error if something goes wrong
+                reject(err);
             }
-            userdata.Password = hash;
-            db.getDB().collection(collection.USER_COLLECTION).insertOne(userdata, (err, result) => {
-                if (err) {
-                    console.error('Error inserting user:', err);
-                    return callback(err);
-                }
-                callback(null, result.insertedId);
-            });
         });
-    },
+    }
+    
+        
+    ,
     getProductDetails: (productId) => {
         return new Promise(async (resolve, reject) => {
           try {

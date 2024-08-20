@@ -1,14 +1,21 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+  <!-- Title (Hidden on Mobile) -->
+  <a class="navbar-brand d-none d-lg-block" href="/" style="font-weight: bold; font-family: 'Courier New', Courier, monospace;">ShopEase</a>
 
+  <!-- Search Bar (Always Visible) -->
+  <form class="form-inline my-2 my-lg-0 search-form ml-auto mr-3" action="/search" method="GET">
+    <input style="width: 14rem;"  class="form-control mr-sm-2" type="search" placeholder="search in ShopEase" aria-label="Search" name="query">
+    <button class="btn btn-outline-success my-2 my-sm-0" style="width: 6rem;" type="submit">Search</button>
+  </form>
 
-
-<nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #e3f2fd;">
-  <a class="navbar-brand" href="/" style="font-weight: bold; font-family: 'Courier New', Courier, monospace;">ShopEase</a>
+  <!-- Toggle Button for Navbar -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
     aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo02" style="">
+  <!-- Collapsible Navbar Menu -->
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item active">
         <a class="nav-link" href="/">Products<span class="sr-only">(current)</span></a>
@@ -25,10 +32,6 @@
         <a class="nav-link" href="/wishlist">Wishlist</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0" style="    margin-right: 2rem;" action="/search" method="GET">
-      <input class="form-control mr-sm-2"  type="search" placeholder="Search" aria-label="Search" name="query">
-      <button class="btn btn-outline-success my-2 my-sm-0" style="width: 6rem;" type="submit">Search</button>
-    </form>
     <div class="dropdown">
       <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         {{#if user}}
@@ -47,3 +50,17 @@
     </div>
   </div>
 </nav>
+
+<style>
+ @media (max-width: 576px) {
+    .navbar-brand {
+        display: none;
+    }
+    .search-form input[type="search"]::placeholder {
+        content: 'search in ShopEase';
+        font-style: italic;
+    }
+}
+
+
+</style>

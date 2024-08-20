@@ -120,26 +120,18 @@ router.get('/all-users', async (req, res) => {
     res.status(500).send('Error fetching users');
   }
 });
-router.post('/signup', checkAuth, setNoCache, (req, res) => {
+router.post('/signup', (req, res) => {
   console.log('Signup request received');
   
-  userHelpers.doSignup(req.body, (err, response) => {
-    if (err) {
-      console.error('Signup error:', err);
-      return res.status(500).send('Signup failed');
-    }
-
-    console.log('Signup successful, user ID:', response);
+  userHelpers.doSignup(req.body).then((response)=>{
+    console.log(response)
+  
     
-    // Set session data
-    req.session.user = {
-      _id: response,
-      loggedIn: true
-    };
-
+    console.log("signup succesfull");
     // Redirect after setting the session
-    res.redirect('/');
-  });
+    res.redirect('/login');
+  })
+  
 });
 
 
